@@ -1,0 +1,8 @@
+fastapi>=0.95.0
+uvicorn>=0.23.0
+sqlalchemy>=1.4.49
+oracledb>=1.2.1
+python-dotenv>=1.0.0
+pydantic>=2.0
+anyio>=3.7.1
+annotated-types>=0.5.0
