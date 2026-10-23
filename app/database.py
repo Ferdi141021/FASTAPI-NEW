@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 # Ganti ini sesuai dengan environment kamu
 USER = "DEVFERDI"
-PASSWORD = "DEVFERDI15022025"
+PASSWORD = "F3rd1D3fidd"
 HOST = "10.8.2.219"
 PORT = "1521"
 SERVICE_NAME = "ORIONRBN"  # Atau sesuai dengan Oracle kamu
