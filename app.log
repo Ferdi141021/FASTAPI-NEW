@@ -1,3 +1,777 @@
 2025-06-27 23:19:13,914 [ERROR] Unhandled error at http://127.0.0.1:8000/dsj?nomor_do=CGK%2FDO%2F030162XX: NameError("name 'row' is not defined")
 2025-06-27 23:19:28,898 [ERROR] Unhandled error at http://127.0.0.1:8000/dsj?nomor_do=CGK%2FDO%2F03016228: NameError("name 'row' is not defined")
 2025-06-27 23:25:46,534 [ERROR] Unhandled error at http://127.0.0.1:8000/dsj?nomor_do=CGK%2FDO%2F03016228: NameError("name 'row' is not defined")
+2025-09-09 22:26:17,405 [ERROR] Error while uploading. Attempting cleanup.
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPConnection object at 0x0000024BFAE7FB10>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757431575057121?op=CREATE&user.name=root&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=root (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000024BFAE7FB10>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 643, in upload
+    _upload(path_tuple)
+    ~~~~~~~^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 574, in _upload
+    self.write(_temp_path, wrap(reader, chunk_size, progress), **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 520, in write
+    consumer(data)
+    ~~~~~~~~^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 509, in consumer
+    res = self._request(
+      method='POST' if append else 'PUT',
+      url=loc,
+      data=(c.encode(encoding) for c in _data) if encoding else _data,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 209, in _request
+    return self._session.request(
+           ~~~~~~~~~~~~~~~~~~~~~^
+      method=method,
+      ^^^^^^^^^^^^^^
+    ...<3 lines>...
+      **kwargs
+      ^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757431575057121?op=CREATE&user.name=root&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=root (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000024BFAE7FB10>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+2025-09-09 22:37:35,720 [ERROR] Error while uploading. Attempting cleanup.
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPConnection object at 0x0000023BD763F4D0>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757432253431484?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000023BD763F4D0>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 643, in upload
+    _upload(path_tuple)
+    ~~~~~~~^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 574, in _upload
+    self.write(_temp_path, wrap(reader, chunk_size, progress), **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 520, in write
+    consumer(data)
+    ~~~~~~~~^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 509, in consumer
+    res = self._request(
+      method='POST' if append else 'PUT',
+      url=loc,
+      data=(c.encode(encoding) for c in _data) if encoding else _data,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 209, in _request
+    return self._session.request(
+           ~~~~~~~~~~~~~~~~~~~~~^
+      method=method,
+      ^^^^^^^^^^^^^^
+    ...<3 lines>...
+      **kwargs
+      ^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757432253431484?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000023BD763F4D0>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+2025-09-09 22:37:35,738 [ERROR] Unable to cleanup temporary folder.
+2025-09-09 22:37:53,301 [ERROR] Error while uploading. Attempting cleanup.
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPConnection object at 0x000001B3E39FF4D0>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757432271018916?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000001B3E39FF4D0>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 643, in upload
+    _upload(path_tuple)
+    ~~~~~~~^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 574, in _upload
+    self.write(_temp_path, wrap(reader, chunk_size, progress), **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 520, in write
+    consumer(data)
+    ~~~~~~~~^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 509, in consumer
+    res = self._request(
+      method='POST' if append else 'PUT',
+      url=loc,
+      data=(c.encode(encoding) for c in _data) if encoding else _data,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 209, in _request
+    return self._session.request(
+           ~~~~~~~~~~~~~~~~~~~~~^
+      method=method,
+      ^^^^^^^^^^^^^^
+    ...<3 lines>...
+      **kwargs
+      ^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757432271018916?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000001B3E39FF4D0>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+2025-09-09 22:37:53,367 [ERROR] Unable to cleanup temporary folder.
+2025-09-09 22:39:33,441 [ERROR] Error while uploading. Attempting cleanup.
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPConnection object at 0x0000022BB782ED50>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757432371152555?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000022BB782ED50>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 643, in upload
+    _upload(path_tuple)
+    ~~~~~~~^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 574, in _upload
+    self.write(_temp_path, wrap(reader, chunk_size, progress), **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 520, in write
+    consumer(data)
+    ~~~~~~~~^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 509, in consumer
+    res = self._request(
+      method='POST' if append else 'PUT',
+      url=loc,
+      data=(c.encode(encoding) for c in _data) if encoding else _data,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 209, in _request
+    return self._session.request(
+           ~~~~~~~~~~~~~~~~~~~~~^
+      method=method,
+      ^^^^^^^^^^^^^^
+    ...<3 lines>...
+      **kwargs
+      ^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757432371152555?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000022BB782ED50>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+2025-09-09 22:39:33,510 [ERROR] Unable to cleanup temporary folder.
+2025-09-09 22:40:47,643 [ERROR] Error while uploading. Attempting cleanup.
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPConnection object at 0x0000029569FDED50>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757432445352848?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000029569FDED50>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 643, in upload
+    _upload(path_tuple)
+    ~~~~~~~^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 574, in _upload
+    self.write(_temp_path, wrap(reader, chunk_size, progress), **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 520, in write
+    consumer(data)
+    ~~~~~~~~^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 509, in consumer
+    res = self._request(
+      method='POST' if append else 'PUT',
+      url=loc,
+      data=(c.encode(encoding) for c in _data) if encoding else _data,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 209, in _request
+    return self._session.request(
+           ~~~~~~~~~~~~~~~~~~~~~^
+      method=method,
+      ^^^^^^^^^^^^^^
+    ...<3 lines>...
+      **kwargs
+      ^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757432445352848?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000029569FDED50>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+2025-09-09 22:40:47,661 [ERROR] Unable to cleanup temporary folder.
+2025-09-09 23:06:44,055 [ERROR] Error while uploading. Attempting cleanup.
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPConnection object at 0x000001E20539ED50>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757434001700206?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000001E20539ED50>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 643, in upload
+    _upload(path_tuple)
+    ~~~~~~~^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 574, in _upload
+    self.write(_temp_path, wrap(reader, chunk_size, progress), **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 520, in write
+    consumer(data)
+    ~~~~~~~~^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 509, in consumer
+    res = self._request(
+      method='POST' if append else 'PUT',
+      url=loc,
+      data=(c.encode(encoding) for c in _data) if encoding else _data,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 209, in _request
+    return self._session.request(
+           ~~~~~~~~~~~~~~~~~~~~~^
+      method=method,
+      ^^^^^^^^^^^^^^
+    ...<3 lines>...
+      **kwargs
+      ^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/customer-orders.csv.temp-1757434001700206?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000001E20539ED50>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+2025-09-09 23:06:44,117 [ERROR] Unable to cleanup temporary folder.
+2025-09-09 23:08:19,154 [ERROR] Error while uploading. Attempting cleanup.
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "D:\FERDI\PYTHON 313\Lib\http\client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPConnection object at 0x000002157DE1F750>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/tags.csv?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002157DE1F750>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 643, in upload
+    _upload(path_tuple)
+    ~~~~~~~^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 574, in _upload
+    self.write(_temp_path, wrap(reader, chunk_size, progress), **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 520, in write
+    consumer(data)
+    ~~~~~~~~^^^^^^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 509, in consumer
+    res = self._request(
+      method='POST' if append else 'PUT',
+      url=loc,
+      data=(c.encode(encoding) for c in _data) if encoding else _data,
+    )
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\hdfs\client.py", line 209, in _request
+    return self._session.request(
+           ~~~~~~~~~~~~~~~~~~~~~^
+      method=method,
+      ^^^^^^^^^^^^^^
+    ...<3 lines>...
+      **kwargs
+      ^^^^^^^^
+    )
+    ^
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\FERDI\FASTAPI-NEW\envfastapi\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='3326cc9bc590', port=9864): Max retries exceeded with url: /webhdfs/v1/lab/day2/tags.csv?op=CREATE&user.name=CWDD&namenoderpcaddress=namenode:8020&createflag=&createparent=true&overwrite=true&user.name=CWDD (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002157DE1F750>: Failed to resolve '3326cc9bc590' ([Errno 11001] getaddrinfo failed)"))
+2025-09-09 23:08:19,179 [ERROR] Unable to cleanup temporary folder.
+2025-09-12 00:23:33,938 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_query/?q=SELECT%20%2A%20FROM%20mydb.words_count%3B: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:28:30,039 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_query/?q=SELECT%20%2A%20FROM%20words_count: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:42:59,814 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_test/: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:43:27,359 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_test/: ModuleNotFoundError("No module named 'thrift_sasl'")
+2025-09-12 00:43:49,351 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_test/: ModuleNotFoundError("No module named 'thrift_sasl'")
+2025-09-12 00:43:50,745 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_test/: ModuleNotFoundError("No module named 'thrift_sasl'")
+2025-09-12 00:48:09,506 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_test/: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:48:49,926 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_test/: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:51:01,151 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_test/: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:54:00,642 [ERROR] Unhandled error at http://localhost:8000/hive_test/: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:54:03,690 [ERROR] Unhandled error at http://localhost:8000/hive_test/: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:54:05,203 [ERROR] Unhandled error at http://localhost:8000/hive_test/: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:54:14,014 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_test/: TTransportException('TSocket read 0 bytes')
+2025-09-12 00:57:26,201 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_query/?q=SELECT%20%2A%20FROM%20mydb.word_count: TTransportException('TSocket read 0 bytes')
+2025-09-12 01:15:34,758 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_query/?q=SELECT%20%2A%20FROM%20mydb.word_count: TTransportException('TSocket read 0 bytes')
+2025-09-12 01:42:29,198 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_query/?q=SHOW%20DATABASES: RuntimeError("Can't find org.jpype.jar support library")
+2025-09-12 01:53:31,520 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_query/?q=show%20databases: RuntimeError("Can't find org.jpype.jar support library")
+2025-09-12 01:55:00,307 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_query/?q=show%20databases: RuntimeError("Can't find org.jpype.jar support library")
+2025-09-12 01:55:55,170 [ERROR] Unhandled error at http://127.0.0.1:8000/hive_query/?q=SHOW%20DATABASES: RuntimeError("Can't find org.jpype.jar support library")
